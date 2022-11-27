@@ -45,44 +45,31 @@ def get_listforcsv(line_text):
     from datetime import datetime
     if "IgnoreIPv4address" not in line_text:
         """IPv4"""
-        print("v4")
         re_date = re.findall(r'[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}',line_text)
         re_time = re.findall(r'[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}\.[0-9]{8,10}', line_text)
         re_interface = re.findall(r'Interface=([0-9]{1,2})\,',line_text)
         re_trigger = re.findall(r'IP:(.*?).Address',line_text)
         re_ipv4 = re.findall(r'Address=(.*?)\,',line_text)
-        #return_time = re_date[0]+" "+re_time[0]
-        #return_time = datetime.strptime(return_time[:-3],"%Y-%m-%d %H:%M:%S.%f")
-        re_time_tmp = re_time[0]
-        re_time[0] = re_time_tmp[:-3]
-        list = [re_date[0],re_time[0],re_interface[0],re_trigger[0],re_ipv4[0],""]
+        return_time = re_date[0]+" "+re_time[0]
+        return_time = datetime.strptime(return_time[:-3],"%Y-%m-%d %H:%M:%S.%f")
+        list = [return_time,re_interface[0],re_trigger[0],re_ipv4[0],""]
         return list
     else:
         """IPv6"""
-        print("v6")
         re_date = re.findall(r'[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}',line_text)
         re_time = re.findall(r'[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}\.[0-9]{8,10}', line_text)
         re_interface = re.findall(r'Interface=([0-9]{1,2})\,',line_text)
         re_trigger = re.findall(r'IP:(.*?).Address',line_text)
         re_ipv6 = re.findall(r'IPv6address=(.*?)\,',line_text)
-        #return_time = re_date[0]+" "+re_time[0]
-        #return_time = datetime.strptime(return_time[:-3],"%Y-%m-%d %H:%M:%S.%f")
-        re_time_tmp = re_time[0]
-        re_time[0] = re_time_tmp[:-3]
-        list = [re_date[0],re_time[0],re_interface[0],re_trigger[0],"",re_ipv6[0]]
+        return_time = re_date[0]+" "+re_time[0]
+        return_time = datetime.strptime(return_time[:-3],"%Y-%m-%d %H:%M:%S.%f")
+        list = [return_time,re_interface[0],re_trigger[0],"",re_ipv6[0]]
         return list
 
 
+def msgbox(event):
+    from tkinter import messagebox
+    messagebox.showinfo(title="Message",message=event)
 
 if __name__ == '__main__':
-    ret = get_listforcsv("[6]0000.0000::2022-11-1722:44:26.532957800[Microsoft-Windows-TCPIP]IP:AddressDADsuccessful.Address=192.168.56.1,Interface=11,Compartment=1,Protocol=IPv4.")
-    print(ret)
-
-    #text_parse("utf8_lwtnetlog.txt","parsed_lwtnetlog.txt")
-    #f = open("lwtnetlog.txt")
-    #print(textfile_encode_detector("lwtnetlog.txt"))
-
-
-    #for line in f:
-    #    print(line)
-    #f.close()
+    print("f")

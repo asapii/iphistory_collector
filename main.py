@@ -1,10 +1,4 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-# Press the green button in the gutter to run the script.
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     import functions as func
     import chardet
@@ -12,18 +6,25 @@ if __name__ == '__main__':
     import datetime
     import subprocess
 
-    parsed_etl = "lwtnetlog.txt"
     now = datetime.datetime.now()
-    output_csv = "output.csv"
-    headline_csv = ["Date","Time","InterfaceNo","Trigger","IPv4","IPv6"]
+    output_dir ="iphistory_output_" + now.strftime('%Y%m%d_%H%M%S')
+    parsed_etl = output_dir + "\\lwtnetlog.txt"
+    output_csv = output_dir + "\\output.csv"
+    headline_csv = ["Time","InterfaceNo","Trigger","IPv4","IPv6"]
 
-    res = subprocess.run('netsh trace convert input=\"C:\Windows\System32\LogFiles\WMI\LwtNetLog.etl\" output=\"lwtnetlog.txt\" dump=txt',stdout=subprocess.PIPE,shell=True)
-    func.text_encode(parsed_etl,func.textfile_encode_detector(parsed_etl),"parsed_lwtnetlog_utf8.txt","utf-8")
-    #func.text_parse("utf8_lwtnetlog.txt","parsed_lwtnetlog.txt")
-    #with open(parsed_etl_output) as f:
+    subprocess.run('mkdir ' + output_dir, stdout=subprocess.PIPE, shell=True)
+    res = subprocess.run('netsh trace convert input=\"C:\Windows\System32\LogFiles\WMI\LwtNetLog.etl\" output=\"'
+                         + parsed_etl + '" dump=txt',
+                         stdout=subprocess.PIPE,shell=True)
+    func.text_encode(parsed_etl,func.textfile_encode_detector(parsed_etl),output_dir + "\\parsed_lwtnetlog_utf8.txt","utf-8")
     with open(output_csv,"w",newline="") as f:
         writer = csv.writer(f)
         writer.writerow(headline_csv)
-        with open("parsed_lwtnetlog_utf8.txt","r") as txt:
+        with open(output_dir + "\\parsed_lwtnetlog_utf8.txt","r") as txt:
             for row in txt:
                 writer.writerow(func.get_listforcsv(row))
+
+    subprocess.run('echo >netsh interface ip show interfaces > ' + output_dir + "\\interfaces.txt", stdout=subprocess.PIPE, shell=True)
+    subprocess.run('netsh interface ip show interfaces >> ' + output_dir + "\\interfaces.txt", stdout=subprocess.PIPE, shell=True)
+    subprocess.run('del ' + output_dir + "\\parsed_lwtnetlog_utf8.txt", stdout=subprocess.PIPE, shell=True)
+    func.msgbox("IpHistoryCollector finished!!\n\nOutputDirectory:\n"+output_dir)
