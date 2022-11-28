@@ -2,7 +2,9 @@
 
 ## Overview
 IP_History_Collector is a tool to inspect historical IP Address each NetworkInterfaces.
+
 In the case of IPv4 Interfaces, collect past IPv4 Private IP Address.
+
 For IPv6 Interfaces, it collects almost all types of addresses, including Global Unicast Addresses.
 
 ## How it works
