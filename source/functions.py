@@ -28,18 +28,6 @@ def text_encode(src_path,src_codec,dest_path,dest_codec):
     src.close()
     dest.close()
 
-"""BOTSU
-def text_parse(src_path,dest_path):
-    src = open(src_path,"r")
-    dest = open(dest_path,"w")
-    keep_str = ["Addressaddition.Address","AddressDADsuccessful.Address"]
-    for row in src:
-        if keep_str[0] in row or keep_str[1] in row:
-            dest.write(row)
-    src.close()
-    dest.close()
-"""
-
 def get_listforcsv(line_text):
     import re
     from datetime import datetime
@@ -82,6 +70,7 @@ def check_ipv4_privateornone(ip_addr):
         private_list.append("172." + str(ip_count) + ".")
     for ip_count in range(224,256):
         private_list.append(str(ip_count)+".")
+    print(private_list)
     for num in range(len(private_list)):
         if ip_addr.startswith(private_list[num]):
             return True
