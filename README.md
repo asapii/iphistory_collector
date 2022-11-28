@@ -10,6 +10,6 @@ For IPv6 Interfaces, it collects almost all types of addresses, including Global
 Windows10
 
 ## Usage
- Download and execute iphistory_collector.exe with Administrator privilege.
- Automatically created output folder and csv.
+ Download and execute iphistory_collector.exe with Administrator privilege.  
+ Automatically created output folder and csv.  
  If you need more information, look at lwtnetlog.txt in output folder.
