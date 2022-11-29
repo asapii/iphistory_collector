@@ -8,6 +8,7 @@ For IPv6 Interfaces, it collects almost all types of addresses, including Global
 
 ## Requirement
 Windows10
+（Windows11 has not been verified)
 
 ## Usage
  Download contents and execute iphistory_collector.exe with Administrator privilege.  
