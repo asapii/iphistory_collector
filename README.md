@@ -12,6 +12,6 @@ Windows10
 
 ## Usage
  Download contents and execute iphistory_collector.exe with Administrator privilege.  
- So automatically created output folder and csv.  
+ So automatically create output folder and csv.  
  If you need more information, look at lwtnetlog.txt in output folder.  
  The tool analyzes wmi log file, but the log file will be refreshed when shutdown or reboot.
